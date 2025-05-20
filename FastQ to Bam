@@ -1,0 +1,29 @@
+Fastqs are stored in: /mnt/newdisk
+Qc are /home/tech/fqoutput
+Reference genome is in /home/tech/fqoutput/STAR_index
+
+TechTeam123!
+
+
+#May 19: 
+
+#!/bin/bash
+
+# Loop through all forward read files
+for fq1 in *_1.fastq
+do
+  # Get the sample name by removing the _1.fastq suffix
+  sample=$(basename "$fq1" _1.fastq)
+  
+  # Define the reverse read file name
+  fq2="${sample}_2.fastq"
+
+  echo "Processing $sample"
+
+  # Run STAR for each paired sample
+  STAR --runThreadN 8 \
+       --genomeDir /home/tech/fqoutput/STAR_index \
+       --readFilesIn "$fq1" "$fq2" \
+       --outFileNamePrefix "${sample}_" \
+       --outSAMtype BAM Unsorted
+done
