@@ -36,61 +36,27 @@ done
 
 #Updated Code for efficient looping
 
-
 # Directory of your FASTQ files
-
 FASTQ_DIR=/mnt/newdisk
-
- 
-
 # STAR genome index directory
-
 GENOME_DIR=~/fqoutput/STAR_index
-
- 
-
 # Output directory (creates if doesn't exist)
-
 OUTPUT_DIR=~/star_alignments
-
 mkdir -p "$OUTPUT_DIR"
-
- 
-
 # Loop through all R1 FASTQ files
-
 for fq1 in "$FASTQ_DIR"/*_1.fastq; do
-
   # Identify corresponding R2 file
-
   fq2="${fq1/_1.fastq/_2.fastq}"
 
-  
-
   # Get the base sample name (e.g., SRR28007017)
-
   sample=$(basename "$fq1" _1.fastq)
-
-  
-
   echo "Running STAR alignment for sample: $sample"
-
-  
-
   # Run STAR alignment
-
   STAR --runThreadN 8 \
-
        --genomeDir "$GENOME_DIR" \
-
        --readFilesIn "$fq1" "$fq2" \
-
        --outFileNamePrefix "$OUTPUT_DIR/${sample}_" \
-
        --outSAMtype BAM Unsorted
-
-  
-
   echo "Finished alignment for sample: $sample"
 
 done
