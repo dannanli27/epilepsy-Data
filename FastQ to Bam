@@ -24,6 +24,6 @@ do
   STAR --runThreadN 8 \
        --genomeDir /home/tech/fqoutput/STAR_index \
        --readFilesIn "$fq1" "$fq2" \
-       --outFileNamePrefix "${sample}_" \
+       --outFileNamePrefix "./STAR_output/${sample}_" \
        --outSAMtype BAM Unsorted
 done
